@@ -16,7 +16,7 @@
   <!-- Center column (champion selecter) with virtual scroll -->
   <cdk-virtual-scroll-viewport [itemSize]="itemSize" class="champion-grid" #gridContainer>
     <div class="champion-row" *cdkVirtualFor="let row of groupedChamps; let i = index" #rowRef>
-      <div class="champion-card" *ngFor="let champ of row" (click)="assignChampionToBox(champ)">
+      <div class="champion-card" *ngFor="let champ of row" (click)="assignChampionToBox(champ)" [class.disabled]="pickedChampions.has(champ.id)">
         <img [src]="champ.img" [alt]="champ.name">
         <span>{{ champ.name }}</span>
       </div>

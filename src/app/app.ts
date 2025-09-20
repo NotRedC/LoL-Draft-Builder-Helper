@@ -20,6 +20,7 @@ export class App implements OnInit, AfterViewInit{
 
   champions: any[] = [];
   groupedChamps: Champion[][] = [];
+  pickedChampions = new Set<string>();
 
   itemSize = 120;
   cardWidth = 110;
@@ -104,6 +105,12 @@ export class App implements OnInit, AfterViewInit{
       console.log('No box selected, cannot assign champion.');
       return;
     }
+
+    if (this.pickedChampions.has(champ.id)) {
+      console.log('⚠️ Champion already picked:', champ.name);
+      return;
+    }
+
     if (this.selectedBox) {
       if (this.selectedBox.side === 'left') {
         this.leftBoxes[this.selectedBox.index] = champ;
@@ -112,6 +119,7 @@ export class App implements OnInit, AfterViewInit{
         this.rightBoxes[this.selectedBox.index] = champ;
         console.log(`Assigned ${champ.name} to ${this.selectedBox.side} box ${this.selectedBox.index}`);
       }
+      this.pickedChampions.add(champ.id); // mark as used
       this.selectedBox = null; // Deselect after assignment
     }
   }

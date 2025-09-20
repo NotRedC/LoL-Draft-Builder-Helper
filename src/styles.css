@@ -121,4 +121,9 @@
     color: #fff;
   }
   
+  .champion-card.disabled {
+    opacity: 0.4;
+    pointer-events: none; /* unclickable */
+    filter: grayscale(70%);
+  }
   
