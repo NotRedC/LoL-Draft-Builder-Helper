@@ -5,15 +5,18 @@
 <div class="content">
   <!-- Left column -->
   <div class="column left">
-    <div class="box" *ngFor="let item of leftBoxes; let i = index">
-      
+    <div class="box" *ngFor="let champ of leftBoxes; let i = index"
+    [class.selected]="selectedBox?.side === 'left' && selectedBox?.index === i"
+    (click)="selectBox('left', i)">
+      <img *ngIf="champ" [src]="champ.img" [alt]="champ.name" />
+      <span *ngIf="champ">{{ champ.name }}</span>
     </div>
   </div>
 
   <!-- Center column (champion selecter) with virtual scroll -->
   <cdk-virtual-scroll-viewport [itemSize]="itemSize" class="champion-grid" #gridContainer>
     <div class="champion-row" *cdkVirtualFor="let row of groupedChamps; let i = index" #rowRef>
-      <div class="champion-card" *ngFor="let champ of row">
+      <div class="champion-card" *ngFor="let champ of row" (click)="assignChampionToBox(champ)">
         <img [src]="champ.img" [alt]="champ.name">
         <span>{{ champ.name }}</span>
       </div>
@@ -22,8 +25,11 @@
 
   <!-- Right column -->
   <div class="column right">
-    <div class="box" *ngFor="let item of rightBoxes; let i = index">
-      
+    <div class="box" *ngFor="let champ of rightBoxes; let i = index"
+    [class.selected]="selectedBox?.side === 'right' && selectedBox?.index === i"
+    (click)="selectBox('right', i)">
+      <img *ngIf="champ" [src]="champ.img" [alt]="champ.name" />
+      <span *ngIf="champ">{{ champ.name }}</span>
     </div>
   </div>
 </div>

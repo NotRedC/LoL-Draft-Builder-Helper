@@ -45,6 +45,28 @@
     border-radius: 8px;
     font-weight: bold;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    flex-direction: column;
+  }
+
+  .box.selected {
+    border: 1px solid #ffcc00;
+    box-shadow: 0 0 10px #ffcc00;
+  }
+
+  .box img {
+    width: 45px;
+    height: 45px;
+    border-radius: 5px;
+    display: block;
+  }
+
+  .box span {
+    text-align: center;
+    font-size: 0.7rem;
+    margin-top: 5px;
+    color: #fff;
+    font-weight: bold;
   }
 
   .column.left {

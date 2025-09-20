@@ -14,10 +14,13 @@ import { ScrollingModule, CdkVirtualScrollViewport } from '@angular/cdk/scrollin
 })
 export class App implements OnInit, AfterViewInit{
   protected readonly title = signal('site-lol');
-  leftBoxes = Array(5);
-  rightBoxes = Array(5);
+  leftBoxes: (Champion | null)[] = Array(5).fill(null);
+  rightBoxes: (Champion | null)[] = Array(5).fill(null);
+  selectedBox: { side: 'left' | 'right'; index: number } | null = null;
+
   champions: any[] = [];
   groupedChamps: Champion[][] = [];
+
   itemSize = 120;
   cardWidth = 110;
 
@@ -91,4 +94,25 @@ export class App implements OnInit, AfterViewInit{
       })
     }
 
+  selectBox(side: 'left' | 'right', index: number) {
+    this.selectedBox = { side, index };
+    console.log(`Selected box: ${side} side, index ${index}`);
   }
+
+  assignChampionToBox(champ: Champion) {
+    if (!this.selectedBox) {
+      console.log('No box selected, cannot assign champion.');
+      return;
+    }
+    if (this.selectedBox) {
+      if (this.selectedBox.side === 'left') {
+        this.leftBoxes[this.selectedBox.index] = champ;
+        console.log(`Assigned ${champ.name} to ${this.selectedBox.side} box ${this.selectedBox.index}`);
+      } else {
+        this.rightBoxes[this.selectedBox.index] = champ;
+        console.log(`Assigned ${champ.name} to ${this.selectedBox.side} box ${this.selectedBox.index}`);
+      }
+      this.selectedBox = null; // Deselect after assignment
+    }
+  }
+}
